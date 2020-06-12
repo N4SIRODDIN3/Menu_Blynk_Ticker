@@ -95,8 +95,8 @@ BLYNK_WRITE(V1) {
       distance= duration*0.035/2;//in Chlef 350*0.0001=0.035:in cm/micros
       //LCD BLYNK
       lcd.clear(); //Use it to clear the LCD Widget
-      lcd.print(0, 0, "DISTANCE IN CM");
-      lcd.print(0, 1, distance "Cm");
+      lcd.print(0, 0, "DISTANCE IN Cm");
+      lcd.print(0, 1, distance);
       
        Serial.println(distance);
       
