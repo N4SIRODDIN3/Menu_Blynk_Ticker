@@ -34,9 +34,9 @@
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "Z_TBzZMtZ7ozMdqtFVMFUV3kb1sVsWuZ";
+char auth[] = "************";
 char ssidblynk[] = "*=* dP *=*";
-char passblynk[] = "djfa1953";
+char passblynk[] = "******";
 
 #define echoPin 8 // Echo Pin
 #define trigPin 1 // Trigger Pin
@@ -55,57 +55,34 @@ WidgetLCD lcd(V2);
 
 
 BLYNK_WRITE(V1) {
-  switch (param.asInt())
-  {
-    case 1: // Item 1
-      
-      Serial.println("Long Duration");
-      lcd.clear(); //Use it to clear the LCD Widget
-      lcd.print(0, 0, "Long Duration");
-      Serial.println("Long Duration");
-      Blink.attach(0.2, staticBlink); //Use attach_ms if you need time in ms
-      break;
+  int value = param.asInt();
+  if (value == 1) {
+    Serial.println("RPA99v2003");
+    // If item 1 is selected, change menu items...
+    BlynkParamAllocated items(128); // list length, in bytes
+    items.add("VOile L");
+    //Do what do you want here
+    Serial.println("VOile L");
+    //---------end----------- 
+    items.add("Voile U");
+    items.add("New item 3");
+    Blynk.setProperty(V1, "labels", items);
     
-     
-    case 2: // Item 2
-    
+    // You can also use it like this:
+    //Blynk.setProperty(V1, "labels", "item 1", "item 2", "item 3");
+
+  } else if (value == 2) {
       Serial.println("Short Duration"); 
       lcd.clear(); //Use it to clear the LCD Widget
       lcd.print(0, 0, "Short Duration");
       Serial.println("Short Duration");
       Blink.attach_ms(2, staticBlink); //Use attach_ms if you need time in ms
-      break;
-  
-    case 3: // Item 3
-      Serial.println("Item 3 selected");
      
-
-        /* The following trigPin/echoPin cycle is used to determine the
-       distance of the nearest object by bouncing soundwaves off of it. */ 
-       digitalWrite(trigPin, LOW); 
-       Triger.attach_ms(0.002, changeState); 
-        Triger.detach();
-       digitalWrite(trigPin, HIGH);
-       Triger.attach_ms(0.01, changeState); 
-       Triger.detach();
-       digitalWrite(trigPin, LOW);
-       duration = pulseIn(echoPin, HIGH);
-       
-        // Calculating the distance
-      distance= duration*0.035/2;//in Chlef 350*0.0001=0.035:in cm/micros
-      //LCD BLYNK
-      lcd.clear(); //Use it to clear the LCD Widget
-      lcd.print(0, 0, "DISTANCE IN Cm");
-      lcd.print(0, 1, distance);
-      
-       Serial.println(distance);
-      
-      break;
-    default:
-      Serial.println("Unknown item selected");
+  } else {
+    Serial.println("Unknown item selected");
   }
 }
-
+ 
 void setup()
 {
   // Debug console
