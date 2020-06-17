@@ -34,9 +34,9 @@
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "************";
+char auth[] = "))))))))))))";
 char ssidblynk[] = "*=* dP *=*";
-char passblynk[] = "******";
+char passblynk[] = "_è-('è_çà";
 
 #define echoPin 8 // Echo Pin
 #define trigPin 1 // Trigger Pin
@@ -56,33 +56,94 @@ WidgetLCD lcd(V2);
 
 BLYNK_WRITE(V1) {
   int value = param.asInt();
+//Create menu list items from hardwar
+  BlynkParamAllocated items(128); // list length, in bytes
+    items.add("RPA");//value=1
+    items.add("EC8");//value=2
+    items.add("ASCE");//value=3
+    Blynk.setProperty(V1, "labels", items);
   if (value == 1) {
+    Serial.println("RPA");
+    lcd.clear(); //Use it to clear the LCD Widget
+    lcd.print(0, 0, "RPA");
+    //Create new menu list items from hardwar
+    BlynkParamAllocated items(128); // list length, in bytes
+    items.add("voile L");
+    items.add("voile U");
+    items.add("voile T");
+    items.add("Back");//value=4 to return to the main menu
+    Blynk.setProperty(V1, "labels", items);
+  } else if (value == 2) {
+    Serial.println("EC8");
+    lcd.clear(); //Use it to clear the LCD Widget
+    lcd.print(0, 0, "Eurocode 8"); 
+    // If item 2 is selected, change menu items...
+    BlynkParamAllocated items(128); // list length, in bytes
+    items.add("voile L");
+    items.add("voile U");
+    items.add("voile T");
+    items.add("Back");
+    Blynk.setProperty(V1, "labels", items);
+  } 
+  else if(value==3){
+    Serial.println("ASCE");    
+    lcd.clear(); //Use it to clear the LCD Widget
+    lcd.print(0, 0, "ASCE");
+    // If item 2 is selected, change menu items...
+    BlynkParamAllocated items(128); // list length, in bytes
+    items.add("voile L");
+    items.add("voile U");
+    items.add("voile T");
+    items.add("Back");
+    Blynk.setProperty(V1, "labels", items);
+  }
+  else {
+    BlynkParamAllocated items(128); // list length, in bytes
+    items.add("RPA");
+    items.add("EC8");
+    items.add("ASCE");
+    Blynk.setProperty(V1, "labels", items);
+  }
+}
+  /*if (value == 1) {
     Serial.println("RPA99v2003");
     // If item 1 is selected, change menu items...
     BlynkParamAllocated items(128); // list length, in bytes
     items.add("VOile L");
     //Do what do you want here
-    Serial.println("VOile L");
+    Serial.println("VOile L Selected Yessssss");
+    lcd.clear(); //Use it to clear the LCD Widget
+    int i=2465768;
+    lcd.print(0, 0, i);
+    Serial.println(i);
     //---------end----------- 
     items.add("Voile U");
-    items.add("New item 3");
+    Serial.println("VOile UUU Selected Yessssss");
+    lcd.clear(); //Use it to clear the LCD Widget
+    int s=111;
+    lcd.print(0, 0, s);
+    Serial.println(s);
+    items.add("Retour au menu principal");
+    lcd.clear(); //Use it to clear the LCD Widget
+    lcd.print(0, 0, "Choisir le reglement");
+    value=0;
     Blynk.setProperty(V1, "labels", items);
     
     // You can also use it like this:
     //Blynk.setProperty(V1, "labels", "item 1", "item 2", "item 3");
 
   } else if (value == 2) {
-      Serial.println("Short Duration"); 
+      Serial.println("Eurocode 8"); 
       lcd.clear(); //Use it to clear the LCD Widget
-      lcd.print(0, 0, "Short Duration");
-      Serial.println("Short Duration");
-      Blink.attach_ms(2, staticBlink); //Use attach_ms if you need time in ms
+      lcd.print(0, 0, "Eurocode 8");
+      Serial.println("Eurocode 8");
+      Blink.attach(1, staticBlink); //Use attach_ms if you need time in ms
      
   } else {
     Serial.println("Unknown item selected");
   }
 }
- 
+*/ 
 void setup()
 {
   // Debug console
